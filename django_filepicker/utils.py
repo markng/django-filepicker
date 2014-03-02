@@ -1,5 +1,5 @@
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os
 
 from django.core.files import File
@@ -36,14 +36,14 @@ class FilepickerFile(File):
             if longfield in additional_params:
                 query_params[field] = additional_params[longfield]
         # Append the fields as GET query parameters to the URL in data.
-        query_params = urllib.urlencode(query_params)
+        query_params = urllib.parse.urlencode(query_params)
         url = self.url
         if query_params:
             url = url + '?' + query_params
 
         # The temporary file will be created in a directory set by the
         # environment (TEMP_DIR, TEMP or TMP)
-        self.filename, header = urllib.urlretrieve(url)
+        self.filename, header = urllib.request.urlretrieve(url)
         name = os.path.basename(self.filename)
         disposition = header.get('Content-Disposition')
         if disposition:

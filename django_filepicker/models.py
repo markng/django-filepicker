@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy
 
-import forms
+from . import forms
 
 
 class FPFileField(models.FileField):
